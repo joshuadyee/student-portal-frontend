@@ -6,13 +6,16 @@ if (jwt) {
   axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
 }
 
-export function Login() {
+export function Login({ setStudentEmail }) {
   const [errors, setErrors] = useState([]);
+  // const [studentEmail, setStudentEmail] = useState({})
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrors([]);
     const params = new FormData(event.target);
+    console.log(params.get("email"))
+    setStudentEmail(params.get("email"))
     axios
       .post("http://localhost:3000/sessions.json", params)
       .then((response) => {
