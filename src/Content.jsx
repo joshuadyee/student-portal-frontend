@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from "axios"
-
+import { Create } from "./Create"
 
 // TODO: logout link
 
@@ -178,7 +178,7 @@ export function Content() {
           <p>{studentData.github_url}</p>
           <p>{studentData.photo}</p>
         </div>
-      <button onClick={getStudentData}>Get Student Data</button>
+        <button onClick={getStudentData}>Get Student Data</button>
       </div>
 
       <div>
@@ -192,7 +192,7 @@ export function Content() {
             <p>{experience.details}</p>
           </div>
         ))}
-      <button onClick={getExperience}>Get Experience</button>
+        <button onClick={getExperience}>Get Experience</button>
       </div>
 
       <div>
@@ -206,7 +206,7 @@ export function Content() {
             <p>{education.details}</p>
           </div>
         ))}
-      <button onClick={getEducation}>Get Education</button>
+        <button onClick={getEducation}>Get Education</button>
       </div>
 
       <div>
@@ -216,7 +216,7 @@ export function Content() {
             <p>skill:{skill.skill_name}</p>
           </div>
         ))}
-      <button onClick={getSkills}>Get Skills</button>
+        <button onClick={getSkills}>Get Skills</button>
       </div>
 
       <div>
@@ -229,13 +229,10 @@ export function Content() {
             <img src={capstone.image} />
           </div>
         ))}
-      <button onClick={getCapstones}>Get Capstones</button>
+        <button onClick={getCapstones}>Get Capstones</button>
       </div>
 
-
-
-
-
+      <Create />
     </main>
   )
 }
