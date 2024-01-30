@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from "axios"
 import { Create } from "./Create"
+import { Update } from "./Update"
 
 // TODO: logout link
 
@@ -233,6 +234,7 @@ export function Content() {
       </div>
 
       <Create />
+      <Update />
     </main>
   )
 }
