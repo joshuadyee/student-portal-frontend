@@ -1,18 +1,19 @@
 import { useState, useEffect } from 'react'
 import axios from "axios"
 
+
+// TODO: logout link
+
+
+
 export function Content() {
-
-  const [studentEmail, setStudentEmail] = useState({})
-  console.log(studentEmail)
-
   const jwt = localStorage.getItem("jwt");
   if (jwt) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
   }
 
+  const [studentEmail, setStudentEmail] = useState({})
   const [errors, setErrors] = useState([]);
-
   const [studentId, setStudentId] = useState({})
   const [studentData, setStudentData] = useState([])
   const [experiences, setExperiences] = useState([])
@@ -20,20 +21,17 @@ export function Content() {
   const [skills, setSkills] = useState([])
   const [capstones, setCapstones] = useState([])
 
-  // get student id
-  // get student data request
-  // get request using students id
-  console.log(studentEmail.studentEmail)
+  console.log(studentEmail)
 
-  const getStudentId = () => {
-    console.log("getStudentId")
-    axios
-      .get(`http://localhost:3000/students.json?email=${studentEmail.studentEmail}`)
-      .then((response) => {
-        console.log(response.data)
-        setStudentId(response.data.id)
-      })
-  }
+  // const getStudentId = () => {
+  //   console.log("getStudentId")
+  //   axios
+  //     .get(`http://localhost:3000/students.json?email=${studentEmail}`)
+  //     .then((response) => {
+  //       console.log(response.data)
+  //       setStudentId(response.data.id)
+  //     })
+  // }
 
   const getStudentData = () => {
     console.log("getStudentData")
@@ -46,15 +44,6 @@ export function Content() {
 
   }
 
-  useEffect(() => {
-    getStudentId();
-  }, []);
-
-  useEffect(() => {
-    getStudentData();
-  }, [getStudentId]);
-
-
   const getExperience = () => {
     console.log("getExperience")
     axios
@@ -65,9 +54,6 @@ export function Content() {
       })
   }
 
-  useEffect(() => {
-    getExperience();
-  }, [getStudentId]);
 
   const getEducation = () => {
     console.log("getEducation")
@@ -79,11 +65,6 @@ export function Content() {
       })
   }
 
-  useEffect(() => {
-    getEducation();
-  }, [getStudentId]);
-
-  //skills
 
   const getSkills = () => {
     console.log("getSkill")
@@ -94,10 +75,6 @@ export function Content() {
         setSkills(response.data)
       })
   }
-
-  useEffect(() => {
-    getSkills();
-  }, [getStudentId]);
 
   //capstones
 
@@ -111,10 +88,7 @@ export function Content() {
       })
   }
 
-  useEffect(() => {
-    getCapstones();
-  }, [getStudentId]);
-
+  // login authentication
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -136,6 +110,33 @@ export function Content() {
         setErrors(["Invalid email or password"]);
       });
   }
+
+
+
+  useEffect(() => {
+    const getStudentId = () => {
+      console.log("getStudentId");
+      axios
+        .get(`http://localhost:3000/students.json?email=${studentEmail}`)
+        .then((response) => {
+          console.log(response.data);
+          setStudentId(response.data.id);
+        });
+    };
+
+    getStudentId();
+  }, [studentEmail]);
+
+  // useEffect(() => {
+  //   getStudentData();
+  //   getExperience();
+  //   getEducation();
+  //   getSkills();
+  //   getCapstones();
+  // }, [setStudentEmail]);
+
+
+
   return (
     <main>
       {/* login part */}
@@ -159,6 +160,9 @@ export function Content() {
       <h1>Welcome to React!</h1>
 
       {/* Student part */}
+
+
+
       <div>
         <h1>Student Page</h1>
         <div>
@@ -174,6 +178,7 @@ export function Content() {
           <p>{studentData.github_url}</p>
           <p>{studentData.photo}</p>
         </div>
+      <button onClick={getStudentData}>Get Student Data</button>
       </div>
 
       <div>
@@ -187,6 +192,7 @@ export function Content() {
             <p>{experience.details}</p>
           </div>
         ))}
+      <button onClick={getExperience}>Get Experience</button>
       </div>
 
       <div>
@@ -200,6 +206,7 @@ export function Content() {
             <p>{education.details}</p>
           </div>
         ))}
+      <button onClick={getEducation}>Get Education</button>
       </div>
 
       <div>
@@ -209,6 +216,7 @@ export function Content() {
             <p>skill:{skill.skill_name}</p>
           </div>
         ))}
+      <button onClick={getSkills}>Get Skills</button>
       </div>
 
       <div>
@@ -221,6 +229,7 @@ export function Content() {
             <img src={capstone.image} />
           </div>
         ))}
+      <button onClick={getCapstones}>Get Capstones</button>
       </div>
 
 
