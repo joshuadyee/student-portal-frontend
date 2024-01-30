@@ -49,8 +49,8 @@ export function Content() {
   const getExperience = () => {
     console.log("getExperience")
     axios
-      .get(`http://localhost:3000/experiences.json?user_id=${studentID}`)
-      // .get(`http://localhost:3000/experiences.json`)
+      // .get(`http://localhost:3000/experiences.json?user_id=${studentID}`)
+      .get(`http://localhost:3000/experiences.json`)
       .then((response) => {
         console.log(response.data)
         setExperiences(response.data)
@@ -73,8 +73,8 @@ export function Content() {
   const getSkills = () => {
     console.log("getSkill")
     axios
-      .get(`http://localhost:3000/skills.json?user_id=${studentID}`)
-      // .get(`http://localhost:3000/skills.json`)
+      // .get(`http://localhost:3000/skills.json?user_id=${studentID}`)
+      .get(`http://localhost:3000/skills.json`)
       .then((response) => {
         console.log(response.data)
         setSkills(response.data)
@@ -118,7 +118,6 @@ export function Content() {
   }
 
 
-
   useEffect(() => {
     const getStudentId = () => {
       console.log("getStudentId");
@@ -140,6 +139,14 @@ export function Content() {
   //   getSkills();
   //   getCapstones();
   // }, [setStudentEmail]);
+
+  //skill destory 
+
+  const destroySkill = (id) => {
+    console.log("destorySkill");
+    axios.delete(`http://localhost:3000/skills/${id}.json`)
+    window.location.href = "/"
+  }
 
 
 
@@ -217,11 +224,14 @@ export function Content() {
         <button onClick={getEducation}>Get Education</button>
       </div>
 
+
+
       <div>
         <h1>Skills</h1>
         {skills.map(skill => (
           <div key={skill.id}>
             <p>skill:{skill.skill_name}</p>
+            <button onClick={() => destroySkill(skill.id)}>Destroy</button>
           </div>
         ))}
         <button onClick={getSkills}>Get Skills</button>
@@ -240,7 +250,9 @@ export function Content() {
         <button onClick={getCapstones}>Get Capstones</button>
       </div>
       <Create />
-      <Update experiences={experiences} educations={educations} capstones={capstones}/>
+      <Update experiences={experiences} educations={educations} capstones={capstones} />
+
+
     </main>
   )
 }
