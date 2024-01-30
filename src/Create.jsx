@@ -50,7 +50,7 @@ export function Create() {
           company: <input name="company" type="text" />
         </div>
         <div>
-          detail: <input name="detail" type="text" />
+          detail: <input name="details" type="text" />
         </div>
         <button type="submit">Create experience</button>
       </form>
