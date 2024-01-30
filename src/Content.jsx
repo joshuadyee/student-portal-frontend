@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
+import { Link, Routes, Route } from 'react-router-dom'
 import axios from "axios"
 import { Create } from "./Create"
+import { Update } from "./Update"
 
-// TODO: logout link
+// TODO: logout link, destroy, split into pages, design
 
 
 
@@ -47,7 +49,8 @@ export function Content() {
   const getExperience = () => {
     console.log("getExperience")
     axios
-      .get(`http://localhost:3000/experience.json?user_id=${studentID}`)
+      .get(`http://localhost:3000/experiences.json?user_id=${studentID}`)
+      // .get(`http://localhost:3000/experiences.json`)
       .then((response) => {
         console.log(response.data)
         setExperiences(response.data)
@@ -59,6 +62,7 @@ export function Content() {
     console.log("getEducation")
     axios
       .get(`http://localhost:3000/educations.json?user_id=${studentID}`)
+      // .get(`http://localhost:3000/educations.json`)
       .then((response) => {
         console.log(response.data)
         setEducations(response.data)
@@ -70,6 +74,7 @@ export function Content() {
     console.log("getSkill")
     axios
       .get(`http://localhost:3000/skills.json?user_id=${studentID}`)
+      // .get(`http://localhost:3000/skills.json`)
       .then((response) => {
         console.log(response.data)
         setSkills(response.data)
@@ -82,6 +87,7 @@ export function Content() {
     console.log("getCapstones")
     axios
       .get(`http://localhost:3000/capstones.json?user_id=${studentID}`)
+      // .get(`http://localhost:3000/capstones.json`)
       .then((response) => {
         console.log(response.data)
         setCapstones(response.data)
@@ -184,12 +190,14 @@ export function Content() {
       <div>
         <h1>Experience</h1>
         {experiences.map(experience => (
-          <div key={experience.setEducations}>
+          <div key={experience.id}>
             <p>{experience.start_date}</p>
             <p>{experience.end_date}</p>
             <p>{experience.job_title}</p>
             <p>{experience.company}</p>
             <p>{experience.details}</p>
+            {/* <Link to={`/experiences/${experience.id}`}>Update</Link> */}
+            {/* <a href={`/experiences/${experience.id}`}>Update</a> */}
           </div>
         ))}
         <button onClick={getExperience}>Get Experience</button>
@@ -212,7 +220,7 @@ export function Content() {
       <div>
         <h1>Skills</h1>
         {skills.map(skill => (
-          <div key="skill.id">
+          <div key={skill.id}>
             <p>skill:{skill.skill_name}</p>
           </div>
         ))}
@@ -222,7 +230,7 @@ export function Content() {
       <div>
         <h1>Capstones</h1>
         {capstones.map(capstone => (
-          <div key="capstone.id">
+          <div key={capstone.id}>
             <p>{capstone.name}</p>
             <p>{capstone.description}</p>
             <p>{capstone.url}</p>
@@ -231,8 +239,8 @@ export function Content() {
         ))}
         <button onClick={getCapstones}>Get Capstones</button>
       </div>
-
       <Create />
+      <Update experiences={experiences} educations={educations} capstones={capstones}/>
     </main>
   )
 }
