@@ -1,6 +1,7 @@
+import axios from "axios"
+import { jwtDecode } from "jwt-decode"
 import { useState, useEffect } from 'react'
 import { Link, Routes, Route } from 'react-router-dom'
-import axios from "axios"
 import { Create } from "./Create"
 import { Update } from "./Update"
 
@@ -9,11 +10,7 @@ import { Update } from "./Update"
 
 
 export function Content() {
-  const jwt = localStorage.getItem("jwt");
-  if (jwt) {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
-  }
-
+  const [jwt, setJwt] = useState(localStorage.getItem("jwt"));
   const [studentEmail, setStudentEmail] = useState({})
   const [errors, setErrors] = useState([]);
   const [studentId, setStudentId] = useState({})
@@ -23,7 +20,9 @@ export function Content() {
   const [skills, setSkills] = useState([])
   const [capstones, setCapstones] = useState([])
 
-  console.log(studentEmail)
+
+
+
 
   // const getStudentId = () => {
   //   console.log("getStudentId")
@@ -118,19 +117,19 @@ export function Content() {
   }
 
 
-  useEffect(() => {
-    const getStudentId = () => {
-      console.log("getStudentId");
-      axios
-        .get(`http://localhost:3000/students.json?email=${studentEmail}`)
-        .then((response) => {
-          console.log(response.data);
-          setStudentId(response.data.id);
-        });
-    };
+  // useEffect(() => {
+  //   const getStudentId = () => {
+  //     console.log("getStudentId");
+  //     axios
+  //       .get(`http://localhost:3000/students.json?email=${studentEmail}`)
+  //       .then((response) => {
+  //         console.log(response.data);
+  //         setStudentId(response.data.id);
+  //       });
+  //   };
 
-    getStudentId();
-  }, [studentEmail]);
+  //   getStudentId();
+  // }, [studentEmail]);
 
   // useEffect(() => {
   //   getStudentData();
@@ -140,7 +139,21 @@ export function Content() {
   //   getCapstones();
   // }, [setStudentEmail]);
 
-  //skill destory 
+  useEffect(() => {
+    if (jwt) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
+      const decodedJwt = jwtDecode(jwt);
+      console.log(decodedJwt)
+      setStudentId(decodedJwt.student_id);
+    }
+  }, [jwt]);
+
+  console.log(studentId)
+
+
+
+
+  //skill destory
 
   const destroySkill = (id) => {
     console.log("destorySkill");
@@ -152,9 +165,14 @@ export function Content() {
 
   return (
     <main>
+      <h1>Welcome to the Student Portal</h1>
+
+
       {/* login part */}
+
+
       <div id="login">
-        <h1>Login</h1>
+        <h2>Login</h2>
         <ul>
           {errors.map((error) => (
             <li key={error}>{error}</li>
@@ -170,14 +188,15 @@ export function Content() {
           <button type="submit">Login</button>
         </form>
       </div>
-      <h1>Welcome to React!</h1>
+
 
       {/* Student part */}
 
 
-
       <div>
-        <h1>Student Page</h1>
+        <h2>Student Page</h2>
+
+        <h3>Your student Id is {studentId}!</h3>
         <div>
           <p>{studentData.first_name}</p>
           <p>{studentData.last_name}</p>
@@ -195,7 +214,7 @@ export function Content() {
       </div>
 
       <div>
-        <h1>Experience</h1>
+        <h2>Experience</h2>
         {experiences.map(experience => (
           <div key={experience.id}>
             <p>{experience.start_date}</p>
@@ -211,7 +230,7 @@ export function Content() {
       </div>
 
       <div>
-        <h1>Educations</h1>
+        <h2>Educations</h2>
         {educations.map(education => (
           <div key={education.id}>
             <p>{education.start_date}</p>
@@ -227,7 +246,7 @@ export function Content() {
 
 
       <div>
-        <h1>Skills</h1>
+        <h2>Skills</h2>
         {skills.map(skill => (
           <div key={skill.id}>
             <p>skill:{skill.skill_name}</p>
@@ -238,7 +257,7 @@ export function Content() {
       </div>
 
       <div>
-        <h1>Capstones</h1>
+        <h2>Capstones</h2>
         {capstones.map(capstone => (
           <div key={capstone.id}>
             <p>{capstone.name}</p>

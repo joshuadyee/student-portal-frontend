@@ -53,7 +53,7 @@ export function Update(props) {
   return (
     <div>
       <h1>Update/Destroy</h1>
-      <h1>Update Experience</h1>
+      <h2>Update Experience</h2>
       {props.experiences.map((experience) => (
         <div key={experience.id}>
           <h3>{experience.company}</h3>
@@ -80,7 +80,7 @@ export function Update(props) {
       ))}
 
 
-      <h1>Update Education</h1>
+      <h2>Update Education</h2>
       {props.educations.map((education) => (
         <div key={education.id}>
           <h3>{education.company}</h3>
@@ -106,7 +106,7 @@ export function Update(props) {
         </div>
       ))}
 
-      <h1>Update Capstone</h1>
+      <h2>Update Capstone</h2>
       {props.capstones.map((capstone) => (
         <div key={capstone.id}>
           <h3>{capstone.name}</h3>
