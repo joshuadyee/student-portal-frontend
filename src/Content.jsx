@@ -196,7 +196,8 @@ export function Content() {
       <div>
         <h2>Student Page</h2>
 
-        <h3>Your student Id is {studentId}!</h3>
+        {/* <h3>Your student Id is {studentId}!</h3> */}
+
         <div>
           <p>{studentData.first_name}</p>
           <p>{studentData.last_name}</p>
