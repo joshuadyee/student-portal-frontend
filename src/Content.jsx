@@ -5,13 +5,15 @@ import { Link, Routes, Route } from 'react-router-dom'
 import { Create } from "./Create"
 import { Update } from "./Update"
 
-// TODO: logout link, destroy, split into pages, design
+// TODO: date vs string format for education and experience
+// TODO: split into pages
+// TODO: split into pages
+// TODO: design
 
 
 
 export function Content() {
   const [jwt, setJwt] = useState(localStorage.getItem("jwt"));
-  const [studentEmail, setStudentEmail] = useState({})
   const [errors, setErrors] = useState([]);
   const [studentId, setStudentId] = useState({})
   const [studentData, setStudentData] = useState([])
@@ -21,7 +23,17 @@ export function Content() {
   const [capstones, setCapstones] = useState([])
 
 
-
+// const fetchDataInOrder = async () => {
+//   try {
+//     await getStudentData();
+//     await getExperience();
+//     await getEducation();
+//     await getSkills();
+//     await getCapstones();
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//   }
+// };
 
 
   // const getStudentId = () => {
@@ -34,6 +46,8 @@ export function Content() {
   //     })
   // }
 
+  console.log(studentId)
+
   const getStudentData = () => {
     console.log("getStudentData")
     axios
@@ -42,14 +56,13 @@ export function Content() {
         console.log(response.data)
         setStudentData(response.data)
       })
-
   }
 
   const getExperience = () => {
     console.log("getExperience")
     axios
-      // .get(`http://localhost:3000/experiences.json?user_id=${studentID}`)
-      .get(`http://localhost:3000/experiences.json`)
+      .get(`http://localhost:3000/experiences.json?student_id=${studentId}`)
+      // .get(`http://localhost:3000/experiences.json`)
       .then((response) => {
         console.log(response.data)
         setExperiences(response.data)
@@ -60,8 +73,8 @@ export function Content() {
   const getEducation = () => {
     console.log("getEducation")
     axios
-      .get(`http://localhost:3000/educations.json?user_id=${studentID}`)
-      // .get(`http://localhost:3000/educations.json`)
+      // .get(`http://localhost:3000/educations.json?student_id=${studentId}`)
+      .get(`http://localhost:3000/educations.json`)
       .then((response) => {
         console.log(response.data)
         setEducations(response.data)
@@ -72,7 +85,7 @@ export function Content() {
   const getSkills = () => {
     console.log("getSkill")
     axios
-      // .get(`http://localhost:3000/skills.json?user_id=${studentID}`)
+      // .get(`http://localhost:3000/skills.json?student_id=${studentId}`)
       .get(`http://localhost:3000/skills.json`)
       .then((response) => {
         console.log(response.data)
@@ -85,8 +98,8 @@ export function Content() {
   const getCapstones = () => {
     console.log("getCapstones")
     axios
-      .get(`http://localhost:3000/capstones.json?user_id=${studentID}`)
-      // .get(`http://localhost:3000/capstones.json`)
+      // .get(`http://localhost:3000/capstones.json?student_id=${studentID}`)
+      .get(`http://localhost:3000/capstones.json`)
       .then((response) => {
         console.log(response.data)
         setCapstones(response.data)
@@ -132,12 +145,7 @@ export function Content() {
   // }, [studentEmail]);
 
   // useEffect(() => {
-  //   getStudentData();
-  //   getExperience();
-  //   getEducation();
-  //   getSkills();
-  //   getCapstones();
-  // }, [setStudentEmail]);
+  // }, [setStudentId]);
 
   useEffect(() => {
     if (jwt) {
@@ -147,6 +155,16 @@ export function Content() {
       setStudentId(decodedJwt.student_id);
     }
   }, [jwt]);
+
+  useEffect(() => {
+  if (studentId) { // Check if studentId is defined
+    // getStudentData();
+    // getExperience();
+    // getEducation();
+    // getSkills();
+    // getCapstones();
+  }
+}, [studentId]);
 
   console.log(studentId)
 
@@ -166,113 +184,104 @@ export function Content() {
   return (
     <main>
       <h1>Welcome to the Student Portal</h1>
-
-
-      {/* login part */}
-
-
-      <div id="login">
-        <h2>Login</h2>
-        <ul>
-          {errors.map((error) => (
-            <li key={error}>{error}</li>
-          ))}
-        </ul>
-        <form onSubmit={handleSubmit}>
+      {jwt ? (
+        <>
           <div>
-            Email: <input name="email" type="email" />
+            <h2>Student Page</h2>
+            <div>
+              <p>{studentData.first_name}</p>
+              <p>{studentData.last_name}</p>
+              <p>{studentData.email}</p>
+              <p>{studentData.phone_number}</p>
+              <p>{studentData.bio}</p>
+              <p>{studentData.linkedin_url}</p>
+              <p>{studentData.twitter_handle}</p>
+              <p>{studentData.website_url}</p>
+              <p>{studentData.resume_url}</p>
+              <p>{studentData.github_url}</p>
+              <p>{studentData.photo}</p>
+            </div>
+            <button onClick={getStudentData}>Get Student Data</button>
           </div>
+
           <div>
-            Password: <input name="password" type="password" />
+            <h2>Experience</h2>
+            {experiences.map(experience => (
+              <div key={experience.id}>
+                <p>{experience.start_date}</p>
+                <p>{experience.end_date}</p>
+                <p>{experience.job_title}</p>
+                <p>{experience.company}</p>
+                <p>{experience.details}</p>
+                {/* <Link to={`/experiences/${experience.id}`}>Update</Link> */}
+                {/* <a href={`/experiences/${experience.id}`}>Update</a> */}
+              </div>
+            ))}
+            <button onClick={getExperience}>Get Experience</button>
           </div>
-          <button type="submit">Login</button>
-        </form>
-      </div>
+
+          <div>
+            <h2>Educations</h2>
+            {educations.map(education => (
+              <div key={education.id}>
+                <p>{education.start_date}</p>
+                <p>{education.end_date}</p>
+                <p>{education.degree}</p>
+                <p>{education.university}</p>
+                <p>{education.details}</p>
+              </div>
+            ))}
+            <button onClick={getEducation}>Get Education</button>
+          </div>
 
 
-      {/* Student part */}
+          <div>
+            <h2>Skills</h2>
+            {skills.map(skill => (
+              <div key={skill.id}>
+                <p>skill:{skill.skill_name}</p>
+                <button onClick={() => destroySkill(skill.id)}>Destroy</button>
+              </div>
+            ))}
+            <button onClick={getSkills}>Get Skills</button>
+          </div>
 
+          <div>
+            <h2>Capstones</h2>
+            {capstones.map(capstone => (
+              <div key={capstone.id}>
+                <p>{capstone.name}</p>
+                <p>{capstone.description}</p>
+                <p>{capstone.url}</p>
+                <img src={capstone.image} />
+              </div>
+            ))}
+            <button onClick={getCapstones}>Get Capstones</button>
+          </div>
+          <Create />
+          <Update experiences={experiences} educations={educations} capstones={capstones} />
+        </>
 
-      <div>
-        <h2>Student Page</h2>
+      ) : (
 
-        {/* <h3>Your student Id is {studentId}!</h3> */}
-
-        <div>
-          <p>{studentData.first_name}</p>
-          <p>{studentData.last_name}</p>
-          <p>{studentData.email}</p>
-          <p>{studentData.phone_number}</p>
-          <p>{studentData.bio}</p>
-          <p>{studentData.linkedin_url}</p>
-          <p>{studentData.twitter_handle}</p>
-          <p>{studentData.website_url}</p>
-          <p>{studentData.resume_url}</p>
-          <p>{studentData.github_url}</p>
-          <p>{studentData.photo}</p>
+        <div id="login">
+          <h2>Login</h2>
+          <ul>
+            {errors.map((error) => (
+              <li key={error}>{error}</li>
+            ))}
+          </ul>
+          <form onSubmit={handleSubmit}>
+            <div>
+              Email: <input name="email" type="email" />
+            </div>
+            <div>
+              Password: <input name="password" type="password" />
+            </div>
+            <button type="submit">Login</button>
+          </form>
         </div>
-        <button onClick={getStudentData}>Get Student Data</button>
-      </div>
-
-      <div>
-        <h2>Experience</h2>
-        {experiences.map(experience => (
-          <div key={experience.id}>
-            <p>{experience.start_date}</p>
-            <p>{experience.end_date}</p>
-            <p>{experience.job_title}</p>
-            <p>{experience.company}</p>
-            <p>{experience.details}</p>
-            {/* <Link to={`/experiences/${experience.id}`}>Update</Link> */}
-            {/* <a href={`/experiences/${experience.id}`}>Update</a> */}
-          </div>
-        ))}
-        <button onClick={getExperience}>Get Experience</button>
-      </div>
-
-      <div>
-        <h2>Educations</h2>
-        {educations.map(education => (
-          <div key={education.id}>
-            <p>{education.start_date}</p>
-            <p>{education.end_date}</p>
-            <p>{education.degree}</p>
-            <p>{education.university}</p>
-            <p>{education.details}</p>
-          </div>
-        ))}
-        <button onClick={getEducation}>Get Education</button>
-      </div>
-
-
-
-      <div>
-        <h2>Skills</h2>
-        {skills.map(skill => (
-          <div key={skill.id}>
-            <p>skill:{skill.skill_name}</p>
-            <button onClick={() => destroySkill(skill.id)}>Destroy</button>
-          </div>
-        ))}
-        <button onClick={getSkills}>Get Skills</button>
-      </div>
-
-      <div>
-        <h2>Capstones</h2>
-        {capstones.map(capstone => (
-          <div key={capstone.id}>
-            <p>{capstone.name}</p>
-            <p>{capstone.description}</p>
-            <p>{capstone.url}</p>
-            <img src={capstone.image} />
-          </div>
-        ))}
-        <button onClick={getCapstones}>Get Capstones</button>
-      </div>
-      <Create />
-      <Update experiences={experiences} educations={educations} capstones={capstones} />
-
-
+      )}
     </main>
-  )
+  );
 }

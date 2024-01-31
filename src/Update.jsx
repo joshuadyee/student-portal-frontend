@@ -3,11 +3,13 @@ import axios from 'axios'
 
 export function Update(props) {
 
-  console.log(props.experiences)
+  // console.log(props.experiences)
 
-  const updateExperience = (id, params, event) => {
+  const updateExperience = (id, event) => {
     event.preventDefault();
+    const params = new FormData(form.target);
     console.log("updateExperience")
+    console.log(params)
     axios.patch(`http://localhost:3000/experiences/${id}`, params)
     window.location.href = "/"
   }
@@ -53,16 +55,16 @@ export function Update(props) {
   return (
     <div>
       <h1>Update/Destroy</h1>
-      <h2>Update Experience</h2>
+      <h1>Update Experience</h1>
       {props.experiences.map((experience) => (
         <div key={experience.id}>
           <h3>{experience.company}</h3>
-          <form onSubmit={updateExperience}>
+          <form onSubmit={(event) => updateExperience(experience.id, event)}>
             <div>
-              Start_date: <input defaultValue={experience.start_date} name="start_date" type="date" />
+              Start_date: <input defaultValue={experience.start_date} name="start_date" type="text" />
             </div>
             <div>
-              End_date: <input defaultValue={experience.end_date} name="end_date" type="date" />
+              End_date: <input defaultValue={experience.end_date} name="end_date" type="text" />
             </div>
             <div>
               Job tiltle: <input defaultValue={experience.job_title} name="job_title" type="text" />
@@ -80,7 +82,7 @@ export function Update(props) {
       ))}
 
 
-      <h2>Update Education</h2>
+      <h1>Update Education</h1>
       {props.educations.map((education) => (
         <div key={education.id}>
           <h3>{education.company}</h3>
@@ -106,7 +108,7 @@ export function Update(props) {
         </div>
       ))}
 
-      <h2>Update Capstone</h2>
+      <h1>Update Capstone</h1>
       {props.capstones.map((capstone) => (
         <div key={capstone.id}>
           <h3>{capstone.name}</h3>
