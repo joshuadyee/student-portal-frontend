@@ -77,8 +77,8 @@ export function Content() {
       .get(`http://localhost:3000/capstones.json?student_id=${studentId}`)
       // .get(`http://localhost:3000/capstones.json`)
       .then((response) => {
-        console.log(response.data)
-        setCapstones(response.data)
+        console.log(response.data);
+        setCapstones(response.data);
       })
   }
 
@@ -119,7 +119,7 @@ export function Content() {
       getExperience();
       getEducation();
       getSkills();
-      getCapstones();
+      getCapstones()
     }
   }, [studentId]);
 
@@ -153,7 +153,6 @@ export function Content() {
               <p>{studentData.github_url}</p>
               <p>{studentData.photo}</p>
             </div>
-            <button onClick={getStudentData}>Get Student Data</button>
           </div>
 
           <div>
@@ -186,7 +185,7 @@ export function Content() {
                 <hr />
               </div>
             ))}
-            <button onClick={getEducation}>Get Education</button>
+            {/* <button onClick={getEducation}>Get Education</button> */}
           </div>
 
           <div>
@@ -214,7 +213,7 @@ export function Content() {
                 <hr />
               </div>
             ))}
-            <button onClick={getCapstones}>Get Capstones</button>
+            {/* <button onClick={getCapstones}>Get Capstones</button> */}
           </div>
           <h3>
             <Link to={`/create`}>Add new Info</Link>

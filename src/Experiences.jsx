@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export function Experiences() {
   const [experience, setExperience] = useState([])
@@ -39,6 +39,7 @@ export function Experiences() {
     axios.delete(`http://localhost:3000/experiences/${id}.json`)
     window.location.href = "/"
   }
+
 
 
   return (
