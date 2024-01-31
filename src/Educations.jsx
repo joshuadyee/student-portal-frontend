@@ -17,7 +17,7 @@ export function Educations() {
   }
 
 
-  const updateExperience = (id, event) => {
+  const updateEducation = (id, event) => {
     event.preventDefault();
     const params = new FormData(event.target);
     console.log("updateExperience")

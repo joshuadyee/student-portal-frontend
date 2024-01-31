@@ -130,13 +130,12 @@ export function Content() {
 
   //skill destory
 
+
   const destroySkill = (id) => {
     console.log("destorySkill");
     axios.delete(`http://localhost:3000/skills/${id}.json`)
     window.location.href = "/"
   }
-
-
 
   return (
     <main>
@@ -194,13 +193,15 @@ export function Content() {
 
           <div>
             <h2>Skills</h2>
-            {skills.map(skill => (
-              <div key={skill.id}>
-                <p>skill:{skill.skill_name}</p>
-                <button onClick={() => destroySkill(skill.id)}>Destroy</button>
-              </div>
-            ))}
+            <div className='skillContainer'>
+              {skills.map(skill => (
+                <div key={skill.id}>
+                  <p className='skillPiece'>{skill.skill_name}
+                  <button className="skillXBtn" onClick={() => destroySkill(skill.id)}>X</button></p>
+                </div>
+              ))}
             <button onClick={getSkills}>Get Skills</button>
+            </div>
           </div>
 
           <div>

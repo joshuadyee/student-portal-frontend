@@ -1,12 +1,11 @@
 import axios from "axios"
-import { useState } from 'react'
 
 export function Create() {
 
 
   const createExperience = (params, successCallback) => {
     console.log("CreateExperience");
-    axios.post("http://localhost:3000/Experience.json", params).then(response => {
+    axios.post("http://localhost:3000/experiences.json", params).then(response => {
       successCallback();
     });
   };
@@ -20,24 +19,63 @@ export function Create() {
 
   const createSkill = (params, successCallback) => {
     console.log("CreateSkill");
-    axios.post("http://localhost:3000/Skills.json", params).then(response => {
+    axios.post("http://localhost:3000/skills.json", params).then(response => {
       successCallback();
     });
   };
   const createCapstone = (params, successCallback) => {
     console.log("CreateCapstone");
-    axios.post("http://localhost:3000/Capstone.json", params).then(response => {
+    axios.post("http://localhost:3000/capstones.json", params).then(response => {
       successCallback();
     });
   };
 
+  const experienceSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const params = Object.fromEntries(formData.entries());
+
+    createExperience(params, () => {
+      console.log('createExperience');
+    });
+  };
+
+  const educationSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const params = Object.fromEntries(formData.entries());
+
+    createEducation(params, () => {
+      console.log('createEducation');
+    });
+  };
+
+  const skillSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const params = Object.fromEntries(formData.entries());
+
+    createSkill(params, () => {
+      console.log("createSkill");
+    });
+  };
+
+  const capstoneSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const params = Object.fromEntries(formData.entries());
+
+    createCapstone(params, () => {
+      console.log('createCapstone');
+    });
+  };
 
 
   return (
     <div>
-      <h1>Create</h1>
-      <h2>New Experiance</h2>
-      <form onSubmit={createExperience}>
+      <h1>New Experiance</h1>
+
+      <form onSubmit={experienceSubmit}>
         <div>
           Start_date: <input name="start_date" type="date" />
         </div>
@@ -59,7 +97,7 @@ export function Create() {
 
       <h2>New Education</h2>
 
-      <form onSubmit={createEducation}>
+      <form onSubmit={educationSubmit}>
         <div>
           Start_date: <input name="start_date" type="date" />
         </div>
@@ -80,7 +118,7 @@ export function Create() {
 
       <h2>New Skill</h2>
 
-      <form onSubmit={createSkill}>
+      <form onSubmit={skillSubmit}>
         <div>
           Skill: <input name="skill_name" type="text" />
         </div>
@@ -89,7 +127,7 @@ export function Create() {
 
       <h2>New Capstone</h2>
 
-      <form onSubmit={createCapstone}>
+      <form onSubmit={capstoneSubmit}>
         <div>
           name: <input name="name" type="text" />
         </div>
