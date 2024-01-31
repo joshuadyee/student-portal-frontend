@@ -61,8 +61,8 @@ export function Content() {
   const getEducation = () => {
     console.log("getEducation")
     axios
-      .get(`http://localhost:3000/educations.json?user_id=${studentID}`)
-      // .get(`http://localhost:3000/educations.json`)
+      // .get(`http://localhost:3000/educations.json?user_id=${studentID}`)
+      .get(`http://localhost:3000/educations.json`)
       .then((response) => {
         console.log(response.data)
         setEducations(response.data)
@@ -86,8 +86,8 @@ export function Content() {
   const getCapstones = () => {
     console.log("getCapstones")
     axios
-      .get(`http://localhost:3000/capstones.json?user_id=${studentID}`)
-      // .get(`http://localhost:3000/capstones.json`)
+      // .get(`http://localhost:3000/capstones.json?user_id=${studentID}`)
+      .get(`http://localhost:3000/capstones.json`)
       .then((response) => {
         console.log(response.data)
         setCapstones(response.data)
@@ -142,13 +142,12 @@ export function Content() {
 
   //skill destory 
 
+
   const destroySkill = (id) => {
     console.log("destorySkill");
     axios.delete(`http://localhost:3000/skills/${id}.json`)
     window.location.href = "/"
   }
-
-
 
   return (
     <main>
@@ -160,17 +159,17 @@ export function Content() {
             <li key={error}>{error}</li>
           ))}
         </ul>
-        <form onSubmit={handleSubmit}>
+        <form className='loginPage' onSubmit={handleSubmit}>
           <div>
-            Email: <input name="email" type="email" />
+            <input name="email" type="email" placeholder='email' />
           </div>
           <div>
-            Password: <input name="password" type="password" />
+            <input name="password" type="password" placeholder='password' />
           </div>
           <button type="submit">Login</button>
         </form>
       </div>
-      <h1>Welcome to React!</h1>
+
 
       {/* Student part */}
 
@@ -228,12 +227,15 @@ export function Content() {
 
       <div>
         <h1>Skills</h1>
-        {skills.map(skill => (
-          <div key={skill.id}>
-            <p>skill:{skill.skill_name}</p>
-            <button onClick={() => destroySkill(skill.id)}>Destroy</button>
-          </div>
-        ))}
+
+        <div className='skillContainer'>
+          {skills.map(skill => (
+            <div key={skill.id}>
+              <p className="skillPiece">{skill.skill_name}
+                <button className="skillXBtn" onClick={() => destroySkill(skill.id)}>X</button></p>
+            </div>
+          ))}
+        </div>
         <button onClick={getSkills}>Get Skills</button>
       </div>
 
