@@ -24,7 +24,7 @@ export function Content() {
   const [skills, setSkills] = useState([])
   const [capstones, setCapstones] = useState([])
 
-
+  console.log(studentId)
   const getStudentData = () => {
     console.log("getStudentData")
     axios
@@ -38,8 +38,8 @@ export function Content() {
   const getExperience = () => {
     console.log("getExperience")
     axios
-      // .get(`http://localhost:3000/experiences.json?student_id=${studentId}`)
-      .get(`http://localhost:3000/experiences.json`)
+      .get(`http://localhost:3000/experiences.json?student_id=${studentId}`)
+      // .get(`http://localhost:3000/experiences.json`)
       .then((response) => {
         console.log(response.data)
         setExperiences(response.data)
@@ -50,8 +50,8 @@ export function Content() {
   const getEducation = () => {
     console.log("getEducation")
     axios
-      // .get(`http://localhost:3000/educations.json?student_id=${studentId}`)
-      .get(`http://localhost:3000/educations.json`)
+      .get(`http://localhost:3000/educations.json?student_id=${studentId}`)
+      // .get(`http://localhost:3000/educations.json`)
       .then((response) => {
         console.log(response.data)
         setEducations(response.data)
@@ -62,8 +62,8 @@ export function Content() {
   const getSkills = () => {
     console.log("getSkill")
     axios
-      // .get(`http://localhost:3000/skills.json?student_id=${studentId}`)
-      .get(`http://localhost:3000/skills.json`)
+      .get(`http://localhost:3000/skills.json?student_id=${studentId}`)
+      // .get(`http://localhost:3000/skills.json`)
       .then((response) => {
         console.log(response.data)
         setSkills(response.data)
@@ -75,8 +75,8 @@ export function Content() {
   const getCapstones = () => {
     console.log("getCapstones")
     axios
-      // .get(`http://localhost:3000/capstones.json?student_id=${studentID}`)
-      .get(`http://localhost:3000/capstones.json`)
+      .get(`http://localhost:3000/capstones.json?student_id=${studentId}`)
+      // .get(`http://localhost:3000/capstones.json`)
       .then((response) => {
         console.log(response.data)
         setCapstones(response.data)
@@ -117,7 +117,7 @@ export function Content() {
   useEffect(() => {
   if (studentId) {
     getStudentData();
-    getExperience();
+    // getExperience();
     // getEducation();
     // getSkills();
     // getCapstones();
