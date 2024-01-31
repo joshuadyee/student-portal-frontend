@@ -1,1 +1,37 @@
+body {
+  margin: 0;
+  padding: 8px 12px;
+}
 
+.skillContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.skillsContainer div {
+  margin-right: 10px;
+}
+
+.skillsContainer h1 {
+  display: block;
+}
+
+.skillPiece {
+  margin: 5px;
+  display: inline-block;
+  background-color: grey;
+  color: whitesmoke;
+  padding: 8px 12px;
+  ;
+  border-radius: 20px;
+}
+
+.skillXBtn {
+  background: none;
+  color: whitesmoke;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+}
