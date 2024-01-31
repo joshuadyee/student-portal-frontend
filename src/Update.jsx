@@ -3,13 +3,17 @@ import axios from 'axios'
 
 export function Update(props) {
 
-  console.log(props.experiences)
+  // console.log(props.experiences)
 
-  const updateExperience = (id, params, event) => {
+  const updateExperience = (id, event) => {
     event.preventDefault();
+    const params = new FormData(event.target);
     console.log("updateExperience")
-    axios.patch(`http://localhost:3000/experiences/${id}`, params)
-    window.location.href = "/"
+    console.log(event.target)
+    console.log(id)
+    console.log(params)
+    // axios.patch(`http://localhost:3000/experiences/${id}`, params)
+    // window.location.href = "/"
   }
 
   const updateEducation = (id, params, event) => {
@@ -53,25 +57,25 @@ export function Update(props) {
   return (
     <div>
       <h1>Update/Destroy</h1>
-      <h1>Update Experience</h1>
+      <h2>Update Experience</h2>
       {props.experiences.map((experience) => (
         <div key={experience.id}>
-          <h3>{experience.company}</h3>
-          <form onSubmit={updateExperience}>
+          {/* <h3>{experience.company}</h3> */}
+          <form onSubmit={(event) => updateExperience(experience.id, event)}>
             <div>
-              Start_date: <input defaultValue={experience.start_date} name="start_date" type="date" />
+              Start_date: <input name="start_date" type="text" defaultValue={experience.start_date} />
             </div>
             <div>
-              End_date: <input defaultValue={experience.end_date} name="end_date" type="date" />
+              End_date: <input name="end_date" type="text" defaultValue={experience.end_date} />
             </div>
             <div>
-              Job tiltle: <input defaultValue={experience.job_title} name="job_title" type="text" />
+              Job tiltle: <input name="job_title" type="text" defaultValue={experience.job_title} />
             </div>
             <div>
-              company: <input defaultValue={experience.company} name="company" type="text" />
+              company: <input name="company" type="text" defaultValue={experience.company} />
             </div>
             <div>
-              detail: <input defaultValue={experience.details} name="details" type="text" />
+              detail: <input name="details" type="text" defaultValue={experience.details} />
             </div>
             <button type="submit">Update</button>
           </form>
@@ -80,7 +84,7 @@ export function Update(props) {
       ))}
 
 
-      <h1>Update Education</h1>
+      {/* <h2>Update Education</h2>
       {props.educations.map((education) => (
         <div key={education.id}>
           <h3>{education.company}</h3>
@@ -104,9 +108,9 @@ export function Update(props) {
           </form>
           <button onClick={() => destroyEducation(education.id)}>Destroy</button>
         </div>
-      ))}
+      ))} */}
 
-      <h1>Update Capstone</h1>
+      {/* <h2>Update Capstone</h2>
       {props.capstones.map((capstone) => (
         <div key={capstone.id}>
           <h3>{capstone.name}</h3>
@@ -127,7 +131,7 @@ export function Update(props) {
           </form>
           <button onClick={() => destroyCapstone(capstone.id)}>Destroy</button>
         </div>
-      ))}
+      ))} */}
 
 
 

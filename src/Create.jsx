@@ -95,11 +95,7 @@ export function Create() {
       </form>
 
 
-
-
-
-
-      <h1>New Education</h1>
+      <h2>New Education</h2>
 
       <form onSubmit={educationSubmit}>
         <div>
@@ -120,7 +116,7 @@ export function Create() {
         <button type="submit">Create experience</button>
       </form>
 
-      <h1>New Skill</h1>
+      <h2>New Skill</h2>
 
       <form onSubmit={skillSubmit}>
         <div>
@@ -129,7 +125,7 @@ export function Create() {
         <button type="submit">Add Skill</button>
       </form>
 
-      <h1>New Capstone</h1>
+      <h2>New Capstone</h2>
 
       <form onSubmit={capstoneSubmit}>
         <div>
