@@ -11,29 +11,38 @@ export function Experiences() {
     axios
       .get(`http://localhost:3000/experiences/${experienceId.experienceId}.json`)
       .then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
         setExperience(response.data)
       })
   }
 
 
-  const updateExperience = (id, event) => {
+  const updateExperience = (id, params) => {
     event.preventDefault();
-    const params = new FormData(event.target);
     console.log("updateExperience")
-    console.log(event.target)
+    console.log(params)
     console.log(id)
-    console.log(...params)
-    axios.patch(`http://localhost:3000/experiences/${id}`, params)
+    axios.patch(`http://localhost:3000/experiences/${id}.json`, params)
     // window.location.href = "/"
   }
+
+  const experienceSubmit = (id, event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const params = Object.fromEntries(formData.entries());
+
+    updateExperience(experience.id, params);
+  };
 
 
   return (
     <div>
       <h1>test update experience</h1>
       <button onClick={getExperience}>get</button>
-      <form onSubmit={(event) => updateExperience(experience.id, event)}>
+      <form onSubmit={() => experienceSubmit(experience.id, event)}>
+        <div>
+          Id: <input name="id" type="text" defaultValue={experience.id} readOnly />
+        </div>
         <div>
           Start_date: <input name="start_date" type="text" defaultValue={experience.start_date} />
         </div>
