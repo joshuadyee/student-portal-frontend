@@ -1,32 +1,55 @@
 import axios from "axios"
+import { jwtDecode } from "jwt-decode"
 
 export function Create() {
-
+  const jwt = localStorage.getItem("jwt");
 
   const createExperience = (params, successCallback) => {
     console.log("CreateExperience");
-    axios.post("http://localhost:3000/experiences.json", params).then(response => {
+    // console.log(...params);
+    axios.post("http://localhost:3000/experiences.json", params, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    }).then(response => {
       successCallback();
+      window.location.href = "/"
     });
   };
 
   const createEducation = (params, successCallback) => {
     console.log("CreateEducation");
-    axios.post("http://localhost:3000/educations.json", params).then(response => {
+    axios.post("http://localhost:3000/educations.json", params, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    }).then(response => {
       successCallback();
+      window.location.href = "/"
     });
   };
 
   const createSkill = (params, successCallback) => {
     console.log("CreateSkill");
-    axios.post("http://localhost:3000/skills.json", params).then(response => {
+    axios.post("http://localhost:3000/skills.json", params, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    }).then(response => {
       successCallback();
+      window.location.href = "/"
     });
   };
+
   const createCapstone = (params, successCallback) => {
     console.log("CreateCapstone");
-    axios.post("http://localhost:3000/capstones.json", params).then(response => {
+    axios.post("http://localhost:3000/capstones.json", params, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    }).then(response => {
       successCallback();
+      window.location.href = "/"
     });
   };
 
