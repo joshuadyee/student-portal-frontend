@@ -6,10 +6,10 @@ import { Create } from "./Create"
 import { Update } from "./Update"
 import { Experiences } from "./Experiences"
 
+// TODO: after backend index actions fixed, change all axios links, remove buttons, add useEffects
+// TODO: change skills to student_skills
 // TODO: date vs string format for education and experience
 // TODO: make update work
-// TODO: after backend index actions fixed, change all axios links, remove buttons, add useEffects
-// TODO: split into pages
 // TODO: design
 
 
