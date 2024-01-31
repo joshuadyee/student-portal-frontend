@@ -34,6 +34,12 @@ export function Experiences() {
     updateExperience(experience.id, params);
   };
 
+  const destroyExperience = (id) => {
+    console.log("experience");
+    axios.delete(`http://localhost:3000/experiences/${id}.json`)
+    window.location.href = "/"
+  }
+
 
   return (
     <div>

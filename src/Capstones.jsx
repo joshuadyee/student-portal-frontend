@@ -17,15 +17,27 @@ export function Capstones() {
   }
 
 
-  const updateCapstone = (id, event) => {
+  const updateCapstone = (id, params) => {
     event.preventDefault();
-    const params = new FormData(event.target);
     console.log("updateCapstone")
-    console.log(event.target)
+    console.log(params)
     console.log(id)
-    console.log(...params)
-    axios.patch(`http://localhost:3000/capstones/${id}`, params)
+    axios.patch(`http://localhost:3000/capstones/${id}.json`, params)
     // window.location.href = "/"
+  }
+
+  const capstoneSubmit = (id, event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const params = Object.fromEntries(formData.entries());
+
+    updateCapstone(capstone.id, params);
+  };
+
+  const destroyCapstone = (id) => {
+    console.log("destroyCapstone");
+    axios.delete(`http://localhost:3000/capstones/${id}.json`)
+    window.location.href = "/"
   }
 
 
@@ -33,7 +45,7 @@ export function Capstones() {
     <div>
       <h1>test update capstone</h1>
       <button onClick={getCapstone}>get</button>
-      <form onSubmit={(event) => updateCapstone(capstone.id, event)}>
+      <form onSubmit={(event) => capstoneSubmit(capstone.id, event)}>
         <div>
           Start_date: <input name="start_date" type="text" defaultValue={capstone.start_date} />
         </div>

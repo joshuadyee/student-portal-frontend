@@ -17,23 +17,34 @@ export function Educations() {
   }
 
 
-  const updateEducation = (id, event) => {
+  const updateEducation = (id, params) => {
     event.preventDefault();
-    const params = new FormData(event.target);
-    console.log("updateExperience")
-    console.log(event.target)
+    console.log("updateEducation")
+    console.log(params)
     console.log(id)
-    console.log(...params)
-    axios.patch(`http://localhost:3000/experiences/${id}`, params)
+    axios.patch(`http://localhost:3000/educations/${id}.json`, params)
     // window.location.href = "/"
   }
 
+  const educationSubmit = (id, event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const params = Object.fromEntries(formData.entries());
+
+    updateEducation(education.id, params);
+  };
+
+  const destroyEducation = (id) => {
+    console.log("destroyEducation");
+    axios.delete(`http://localhost:3000/education/${id}.json`)
+    window.location.href = "/"
+  }
 
   return (
     <div>
       <h1>Update education</h1>
       <button onClick={getEducation}>get</button>
-      <form onSubmit={(event) => updateEducation(education.id, event)}>
+      <form onSubmit={(event) => educationSubmit(education.id, event)}>
         <div>
           Start_date: <input name="start_date" type="text" defaultValue={education.start_date} />
         </div>
