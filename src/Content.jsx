@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Link, Routes, Route } from 'react-router-dom'
 import { Create } from "./Create"
 import { Update } from "./Update"
+import { Experiences } from "./Experiences"
 
 // TODO: date vs string format for education and experience
 // TODO: make update work
@@ -115,8 +116,8 @@ export function Content() {
 
   useEffect(() => {
   if (studentId) {
-    // getStudentData();
-    // getExperience();
+    getStudentData();
+    getExperience();
     // getEducation();
     // getSkills();
     // getCapstones();
@@ -169,7 +170,7 @@ export function Content() {
                 <p>{experience.job_title}</p>
                 <p>{experience.company}</p>
                 <p>{experience.details}</p>
-                {/* <Link to={`/experiences/${experience.id}`}>Update</Link> */}
+                <Link to={`/experiences/${experience.id}`}>Update Experience</Link>
                 {/* <a href={`/experiences/${experience.id}`}>Update</a> */}
               </div>
             ))}
@@ -185,6 +186,7 @@ export function Content() {
                 <p>{education.degree}</p>
                 <p>{education.university}</p>
                 <p>{education.details}</p>
+                <Link to={`/educations/${education.id}`}>Update Education</Link>
               </div>
             ))}
             <button onClick={getEducation}>Get Education</button>
@@ -209,12 +211,17 @@ export function Content() {
                 <p>{capstone.description}</p>
                 <p>{capstone.url}</p>
                 <img src={capstone.image} />
+                <Link to={`/capstones/${capstone.id}`}>Update Capstone</Link>
+
               </div>
             ))}
             <button onClick={getCapstones}>Get Capstones</button>
           </div>
-          <Create />
-          <Update experiences={experiences} educations={educations} capstones={capstones} />
+          <h1>
+            <Link to={`/create`}>Add new Info</Link>
+          </h1>
+          {/* <Update experiences={experiences} educations={educations} capstones={capstones} /> */}
+
         </>
 
       ) : (

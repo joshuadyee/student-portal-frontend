@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { Create } from "./Create"
+
 
 export function Header() {
 
@@ -13,7 +15,7 @@ export function Header() {
   return (
     <header>
       <nav>
-        <a href="/">Home</a> | <a href="#">Link</a> |
+        <a href="/">Home</a> | <a href="/create">Add new Info</a> |
         <a href="#" onClick={logoutStudent}> Log Out</a>
       </nav>
     </header>
