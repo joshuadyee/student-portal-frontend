@@ -35,7 +35,8 @@ export function Create() {
 
   return (
     <div>
-      <h1>New Experiance</h1>
+      <h1>Create</h1>
+      <h2>New Experiance</h2>
       <form onSubmit={createExperience}>
         <div>
           Start_date: <input name="start_date" type="date" />
@@ -56,11 +57,7 @@ export function Create() {
       </form>
 
 
-
-
-
-
-      <h1>New Education</h1>
+      <h2>New Education</h2>
 
       <form onSubmit={createEducation}>
         <div>
@@ -81,7 +78,7 @@ export function Create() {
         <button type="submit">Create experience</button>
       </form>
 
-      <h1>New Skill</h1>
+      <h2>New Skill</h2>
 
       <form onSubmit={createSkill}>
         <div>
@@ -90,7 +87,7 @@ export function Create() {
         <button type="submit">Add Skill</button>
       </form>
 
-      <h1>New Capstone</h1>
+      <h2>New Capstone</h2>
 
       <form onSubmit={createCapstone}>
         <div>

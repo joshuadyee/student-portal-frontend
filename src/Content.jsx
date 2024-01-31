@@ -6,14 +6,15 @@ import { Create } from "./Create"
 import { Update } from "./Update"
 
 // TODO: date vs string format for education and experience
-// TODO: split into pages
+// TODO: make update work
+// TODO: after backend index actions fixed, change all axios links, remove buttons, add useEffects
 // TODO: split into pages
 // TODO: design
 
 
 
 export function Content() {
-  const [jwt, setJwt] = useState(localStorage.getItem("jwt"));
+  const jwt = localStorage.getItem("jwt");
   const [errors, setErrors] = useState([]);
   const [studentId, setStudentId] = useState({})
   const [studentData, setStudentData] = useState([])
@@ -23,37 +24,12 @@ export function Content() {
   const [capstones, setCapstones] = useState([])
 
 
-// const fetchDataInOrder = async () => {
-//   try {
-//     await getStudentData();
-//     await getExperience();
-//     await getEducation();
-//     await getSkills();
-//     await getCapstones();
-//   } catch (error) {
-//     console.error("Error fetching data:", error);
-//   }
-// };
-
-
-  // const getStudentId = () => {
-  //   console.log("getStudentId")
-  //   axios
-  //     .get(`http://localhost:3000/students.json?email=${studentEmail}`)
-  //     .then((response) => {
-  //       console.log(response.data)
-  //       setStudentId(response.data.id)
-  //     })
-  // }
-
-  console.log(studentId)
-
   const getStudentData = () => {
     console.log("getStudentData")
     axios
       .get(`http://localhost:3000/students/${studentId}.json`)
       .then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
         setStudentData(response.data)
       })
   }
@@ -61,8 +37,8 @@ export function Content() {
   const getExperience = () => {
     console.log("getExperience")
     axios
-      .get(`http://localhost:3000/experiences.json?student_id=${studentId}`)
-      // .get(`http://localhost:3000/experiences.json`)
+      // .get(`http://localhost:3000/experiences.json?student_id=${studentId}`)
+      .get(`http://localhost:3000/experiences.json`)
       .then((response) => {
         console.log(response.data)
         setExperiences(response.data)
@@ -112,8 +88,6 @@ export function Content() {
     event.preventDefault();
     setErrors([]);
     const params = new FormData(event.target);
-    console.log(params.get("email"))
-    setStudentEmail(params.get("email"))
     axios
       .post("http://localhost:3000/sessions.json", params)
       .then((response) => {
@@ -130,34 +104,17 @@ export function Content() {
   }
 
 
-  // useEffect(() => {
-  //   const getStudentId = () => {
-  //     console.log("getStudentId");
-  //     axios
-  //       .get(`http://localhost:3000/students.json?email=${studentEmail}`)
-  //       .then((response) => {
-  //         console.log(response.data);
-  //         setStudentId(response.data.id);
-  //       });
-  //   };
-
-  //   getStudentId();
-  // }, [studentEmail]);
-
-  // useEffect(() => {
-  // }, [setStudentId]);
-
   useEffect(() => {
     if (jwt) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
       const decodedJwt = jwtDecode(jwt);
-      console.log(decodedJwt)
+      // console.log(decodedJwt)
       setStudentId(decodedJwt.student_id);
     }
   }, [jwt]);
 
   useEffect(() => {
-  if (studentId) { // Check if studentId is defined
+  if (studentId) {
     // getStudentData();
     // getExperience();
     // getEducation();
@@ -166,7 +123,6 @@ export function Content() {
   }
 }, [studentId]);
 
-  console.log(studentId)
 
 
 
@@ -221,7 +177,7 @@ export function Content() {
           </div>
 
           <div>
-            <h2>Educations</h2>
+            <h2>Education</h2>
             {educations.map(education => (
               <div key={education.id}>
                 <p>{education.start_date}</p>
@@ -233,7 +189,6 @@ export function Content() {
             ))}
             <button onClick={getEducation}>Get Education</button>
           </div>
-
 
           <div>
             <h2>Skills</h2>
@@ -281,6 +236,7 @@ export function Content() {
             <button type="submit">Login</button>
           </form>
         </div>
+
       )}
     </main>
   );
