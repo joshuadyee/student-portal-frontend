@@ -217,9 +217,9 @@ export function Content() {
             ))}
             <button onClick={getCapstones}>Get Capstones</button>
           </div>
-          <h1>
+          <h3>
             <Link to={`/create`}>Add new Info</Link>
-          </h1>
+          </h3>
           {/* <Update experiences={experiences} educations={educations} capstones={capstones} /> */}
 
         </>
