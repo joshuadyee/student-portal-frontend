@@ -2,9 +2,9 @@ import axios from "axios"
 import { jwtDecode } from "jwt-decode"
 import { useState, useEffect } from 'react'
 import { Link, Routes, Route } from 'react-router-dom'
-import { Create } from "./Create"
-import { Update } from "./Update"
-import { Experiences } from "./Experiences"
+// import { Create } from "./Create"
+// import { Update } from "./Update"
+// import { Experiences } from "./Experiences"
 
 // TODO: after backend index actions fixed, change all axios links, remove buttons, add useEffects
 // TODO: change skills to student_skills
@@ -17,7 +17,7 @@ import { Experiences } from "./Experiences"
 export function Content() {
   const jwt = localStorage.getItem("jwt");
   const [errors, setErrors] = useState([]);
-  const [studentId, setStudentId] = useState({})
+  const [studentId, setStudentId] = useState([])
   const [studentData, setStudentData] = useState([])
   const [experiences, setExperiences] = useState([])
   const [educations, setEducations] = useState([])
@@ -63,7 +63,6 @@ export function Content() {
     console.log("getSkill")
     axios
       .get(`http://localhost:3000/skills.json?student_id=${studentId}`)
-      // .get(`http://localhost:3000/skills.json`)
       .then((response) => {
         console.log(response.data)
         setSkills(response.data)
@@ -115,17 +114,14 @@ export function Content() {
   }, [jwt]);
 
   useEffect(() => {
-  if (studentId) {
-    getStudentData();
-    // getExperience();
-    // getEducation();
-    // getSkills();
-    // getCapstones();
-  }
-}, [studentId]);
-
-
-
+    if (studentId) {
+      getStudentData();
+      getExperience();
+      getEducation();
+      getSkills();
+      getCapstones();
+    }
+  }, [studentId]);
 
 
   //skill destory
@@ -171,9 +167,10 @@ export function Content() {
                 <p>{experience.details}</p>
                 <Link to={`/experiences/${experience.id}`}>Update Experience</Link>
                 {/* <a href={`/experiences/${experience.id}`}>Update</a> */}
+                <hr />
               </div>
             ))}
-            <button onClick={getExperience}>Get Experience</button>
+            {/* <button onClick={getExperience}>Get Experience</button> */}
           </div>
 
           <div>
@@ -186,6 +183,7 @@ export function Content() {
                 <p>{education.university}</p>
                 <p>{education.details}</p>
                 <Link to={`/educations/${education.id}`}>Update Education</Link>
+                <hr />
               </div>
             ))}
             <button onClick={getEducation}>Get Education</button>
@@ -197,10 +195,10 @@ export function Content() {
               {skills.map(skill => (
                 <div key={skill.id}>
                   <p className='skillPiece'>{skill.skill_name}
-                  <button className="skillXBtn" onClick={() => destroySkill(skill.id)}>X</button></p>
+                    <button className="skillXBtn" onClick={() => destroySkill(skill.id)}>X</button></p>
                 </div>
               ))}
-            <button onClick={getSkills}>Get Skills</button>
+              {/* <button onClick={getSkills}>Get Skills</button> */}
             </div>
           </div>
 
@@ -213,7 +211,7 @@ export function Content() {
                 <p>{capstone.url}</p>
                 <img src={capstone.image} />
                 <Link to={`/capstones/${capstone.id}`}>Update Capstone</Link>
-
+                <hr />
               </div>
             ))}
             <button onClick={getCapstones}>Get Capstones</button>

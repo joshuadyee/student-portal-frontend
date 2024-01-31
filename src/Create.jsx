@@ -73,7 +73,7 @@ export function Create() {
 
   return (
     <div>
-      <h1>New Experiance</h1>
+      <h2>New Experiance</h2>
 
       <form onSubmit={experienceSubmit}>
         <div>
@@ -83,7 +83,7 @@ export function Create() {
           End_date: <input name="end_date" type="date" />
         </div>
         <div>
-          Job tiltle: <input name="job_tiltle" type="text" />
+          Job tiltle: <input name="job_title" type="text" />
         </div>
         <div>
           company: <input name="company" type="text" />
@@ -92,6 +92,7 @@ export function Create() {
           detail: <input name="details" type="text" />
         </div>
         <button type="submit">Create experience</button>
+        <hr />
       </form>
 
 
@@ -114,6 +115,7 @@ export function Create() {
           detail: <input name="detail" type="text" />
         </div>
         <button type="submit">Create experience</button>
+        <hr />
       </form>
 
       <h2>New Skill</h2>
@@ -123,6 +125,7 @@ export function Create() {
           Skill: <input name="skill_name" type="text" />
         </div>
         <button type="submit">Add Skill</button>
+        <hr />
       </form>
 
       <h2>New Capstone</h2>
@@ -141,6 +144,7 @@ export function Create() {
           image: <input name="image" type="text" />
         </div>
         <button type="submit">Add Capstone</button>
+        <hr />
       </form>
 
 
